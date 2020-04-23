@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
+
 import Person from './Person/Person';
+
 
 class App extends Component {
   state = { // reserved for Component based classes
@@ -38,18 +40,20 @@ class App extends Component {
     this.setState({ persons: persons });
   }
 
-  togglePersonsHandler = () =>{
+  togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({showPersons: !doesShow})
   }
 
   render(){
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1x solid blue',
       padding: '8px',
       cursor: 'pointer'
+      
     };
     
     let persons= null;
@@ -67,16 +71,28 @@ class App extends Component {
             })}            
         </div>
       );
+
+      style.backgroundColor = 'red';
+     
     }
-    return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        <button 
-          style={style}
-          onClick={this.togglePersonsHandler}>Toogle Persons</button>
-        {persons}              
-      </div>
+
+    let classes = [];
+    if (this.state.persons.length <=2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <=1) {
+      classes.push('bold');
+    }
+
+    return (      
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!</p>
+          <button 
+            style={style}
+            onClick={this.togglePersonsHandler}>Toogle Persons</button>
+          {persons}              
+        </div>
     ); 
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App'));  
   }
